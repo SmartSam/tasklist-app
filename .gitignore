@@ -3,3 +3,13 @@
 ################################################################################
 
 /UnitTests/obj
+/ToDoList.Shared/obj
+/.vs/ToDoList
+/ToDoList.Api/bin/Debug/netcoreapp3.1
+/ToDoList.Api/obj
+/ToDoList.Api/ToDoList.Api.csproj.user
+/ToDoList.Api/todoapp.db-wal
+/ToDoList.Api/todoapp.db-shm
+/ToDoList.App/bin/Debug/netcoreapp3.1
+/ToDoList.App/obj
+/UnitTests/bin/Debug/netcoreapp3.1

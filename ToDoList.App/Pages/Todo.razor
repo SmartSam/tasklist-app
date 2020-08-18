@@ -1,0 +1,83 @@
+﻿@page "/todo"
+@inject Services.ApiService apiService
+@inject IJSRuntime JsRuntime;
+@using ToDoList.Shared.Models
+
+<h3>Uncompleted Tasks: (@todos.Count(todo => todo.Status != "Completed"))</h3>
+<div style="float: left;">
+    <ul class="list-group">
+        @foreach (var todo in todos)
+        {
+            <li class="m-1 list-inline-item">
+                <select class="browser-default custom-select" id="statusSelect" @bind="todo.Status">
+                    @foreach (var status in statusList)
+                    {
+                        <option value="@status">@status</option>
+                    }
+                </select>
+                <input type="text" class="form-control mt-1" @bind="todo.Title" />
+                <button type="button" class="btn btn-primary  m-1" @onclick="(() => UpdateTodo(todo))">Update Task</button>
+            </li>
+        }
+    </ul>
+
+    <input type="text" class="form-control m-1" placeholder="Some Task" @onkeyup="@(e => EnableSaveButton(e))" @bind="newTodo" />
+    <button type="button" class="btn btn-primary m-1" @onclick="AddTodo">Add Task</button>
+</div>
+
+
+@code {
+    private IList<ToDoItem> todos = new List<ToDoItem>();
+    private string[] statusList = new string[] { "ToDo", "Started", "Completed" };
+    private string newTodo;
+    private string selectedStatus;
+
+    string SelectedStatus
+    {
+        get => selectedStatus;
+        set
+        {
+            selectedStatus = value;
+        }
+    }
+
+    private async Task EnableSaveButton(KeyboardEventArgs args)
+    {
+        if (args.Key == "Enter")
+        {
+            await AddTodo();
+        }
+    }
+
+    private async Task AddTodo()
+    {
+        if (!string.IsNullOrWhiteSpace(newTodo))
+        {
+            var toDoAdd = new ToDoItem { Title = newTodo, Status = "ToDo" };
+            var addedItem = await apiService.CreateItemAsync(toDoAdd);
+            todos.Add(addedItem);
+            newTodo = string.Empty;
+        }
+        else
+        {
+            await JsRuntime.InvokeVoidAsync("alert", "Item description is missing");
+        }
+    }
+
+    private async Task UpdateTodo(ToDoItem toDoItem)
+    {
+        if (!string.IsNullOrWhiteSpace(toDoItem.Title))
+        {
+            var savedItem = await apiService.UpdateItemAsync(toDoItem);
+        }
+        else
+        {
+            await JsRuntime.InvokeVoidAsync("alert", "Item description is missing");
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        todos = await apiService.GetItemsAsync();
+    }
+}
