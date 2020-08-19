@@ -4,11 +4,11 @@ Simple task list app with ASP.NET Core WebAPI (v3.1) and ASP.NET Core Blazor (v3
 
 ## WebAPI Development server - Kestrel
 
-Open a terminal window then cd to ToDoList.Api and run: `dotnet watch run`. Navigate to `http://localhost:5001/`. The Blazor app page will prompt for a reload if you change any of the source files. 
+Open a terminal window then cd to ToDoList.Api and run: `dotnet watch run`. Navigate to `http://localhost:5001/`. The api app will automatically reload if you change any of the source files. 
 
 ## Blazor Development server - Kestrel
 
-Open another terminal window then cd to ToDoList.App and run: `dotnet watch run`. Navigate to `http://localhost:5002/`. The app will automatically reload if you change any of the source files.
+Open another terminal window then cd to ToDoList.App and run: `dotnet watch run`. Navigate to `http://localhost:5002/`. The Blazor app page will prompt for a reload if you change any of the source files. 
 
 ## Database
 
