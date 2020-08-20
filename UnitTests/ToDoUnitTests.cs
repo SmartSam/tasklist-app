@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
 using System.Collections.Generic;
@@ -20,8 +21,9 @@ namespace UnitTests
         [SetUp]
         public void Setup()
         {
+            Mock<ILogger<ToDoItemController>> _loggerMock = new Mock<ILogger<ToDoItemController>>();
             _repositoryMock = new Mock<IToDoRepository>();
-            _controller = new ToDoItemController(_repositoryMock.Object);
+            _controller = new ToDoItemController(_repositoryMock.Object, _loggerMock.Object);
         }
 
 
