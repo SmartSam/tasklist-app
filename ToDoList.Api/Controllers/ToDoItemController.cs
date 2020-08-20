@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ToDoList.Api.Data;
 using ToDoList.Shared.Models;
+using Microsoft.Extensions.Logging;
 
 namespace ToDoList.Api.Controllers
 {
@@ -14,10 +15,13 @@ namespace ToDoList.Api.Controllers
     public class ToDoItemController : ControllerBase
     {
         private readonly IToDoRepository _repository;
+        private readonly ILogger<ToDoItemController> _logger;
+
         //TODO: inject ILogger
-        public ToDoItemController(IToDoRepository repository)
+        public ToDoItemController(IToDoRepository repository, ILogger<ToDoItemController> logger)
         {
             this._repository = repository;
+            this._logger = logger;
         }
 
         
@@ -34,6 +38,7 @@ namespace ToDoList.Api.Controllers
             catch (Exception ex)
             {
                 //log ex
+                _logger.LogError($"ToDoItemController.GetToDoItems: {ex.Message} {ex?.InnerException} Stack Trace: {ex.StackTrace}");
                 return BadRequest("Error retrieving items");
             }
             
@@ -52,6 +57,7 @@ namespace ToDoList.Api.Controllers
             catch(Exception ex)
             {
                 //log ex
+                _logger.LogError($"ToDoItemController.GetItem: {ex.Message} {ex?.InnerException} Stack Trace: {ex.StackTrace}");
                 return BadRequest("Error retrieving item");
             }
            
@@ -70,6 +76,7 @@ namespace ToDoList.Api.Controllers
             catch(Exception ex)
             {
                 //log exception
+                _logger.LogError($"ToDoItemController.CreateItem: {ex.Message} {ex?.InnerException} Stack Trace: {ex.StackTrace}");
                 return BadRequest("Item could not be created");
             }
   
@@ -86,6 +93,7 @@ namespace ToDoList.Api.Controllers
             catch(Exception ex)
             {
                 //log exception
+                _logger.LogError($"ToDoItemController.UpdateItem: {ex.Message} {ex?.InnerException} Stack Trace: {ex.StackTrace}");
                 return BadRequest("Item could not be saved");
             }
  
