@@ -17,7 +17,6 @@ namespace ToDoList.Api.Controllers
         private readonly IToDoRepository _repository;
         private readonly ILogger<ToDoItemController> _logger;
 
-        //TODO: inject ILogger
         public ToDoItemController(IToDoRepository repository, ILogger<ToDoItemController> logger)
         {
             this._repository = repository;
