@@ -28,7 +28,7 @@ namespace ToDoList.Auth
                 new Client
                 {
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
-                    ClientId = "todolist-web",
+                    ClientId = "todolist-app",
                     ClientSecrets =
                     {
                         new Secret("thisismyclientspecificsecret".Sha256())

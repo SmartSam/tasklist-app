@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BlazorContacts.Web.Services;
+using IdentityModel.Client;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
@@ -29,11 +31,23 @@ namespace ToDoList.App
             services.AddHttpClient<Services.ApiService>(client =>
             {
                 client.BaseAddress = new Uri("http://localhost:5001");
+            })
+                .AddClientAccessTokenHandler();
+
+            services.AddAccessTokenManagement(options =>
+            {
+                options.Client.Clients.Add("auth", new ClientCredentialsTokenRequest
+                {
+                    Address = "http://localhost:5003/connect/token",
+                    ClientId = "todolist-app",
+                    ClientSecret = "thisismyclientspecificsecret"
+                });
             });
 
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
+            //services.AddSingleton<ApiTokenCacheService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

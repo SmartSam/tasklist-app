@@ -16,3 +16,4 @@
 /ToDoList.Auth/obj
 /ToDoList.Auth/bin/Debug/netcoreapp3.1
 /ToDoList.Auth/tempkey.rsa
+/ToDoList.App/ToDoList.App.csproj.user
