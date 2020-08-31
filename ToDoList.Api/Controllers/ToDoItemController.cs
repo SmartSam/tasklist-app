@@ -5,11 +5,13 @@ using Microsoft.AspNetCore.Mvc;
 using ToDoList.Api.Data;
 using ToDoList.Shared.Models;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ToDoList.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ToDoItemController : ControllerBase
     {
         private readonly IToDoRepository _repository;
@@ -42,8 +44,7 @@ namespace ToDoList.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetItem(int id)
-        {
+        public async Task<IActionResult> GetItem(long id)       {
             try
             {
                 var item = await _repository.GetItem(id);

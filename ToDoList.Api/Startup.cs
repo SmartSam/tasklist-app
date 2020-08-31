@@ -35,6 +35,13 @@ namespace ToDoList.Api
             services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllers();
             services.AddScoped<IToDoRepository, ToDoRepository>();
+            services.AddAuthentication("Bearer")
+            .AddJwtBearer("Bearer", options =>
+            {
+                options.Authority = "http://localhost:5003"; //AuthServer address
+                options.RequireHttpsMetadata = false;
+                options.Audience = "todolist-api";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,7 +72,9 @@ namespace ToDoList.Api
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+           
 
             app.UseEndpoints(endpoints =>
             {
