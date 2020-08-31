@@ -1,6 +1,10 @@
 # tasklist-app
 
-Simple task list app with ASP.NET Core WebAPI (v3.1) and ASP.NET Core Blazor (v3.1)
+Simple task list app with ASP.NET Core WebAPI (v3.1), ASP.NET Core Blazor (v3.1) and IdentityServer4
+
+## Auth Development server - Kestrel
+
+Open a terminal window then cd to ToDoList.Auth and run: `dotnet watch run`. Navigate to `http://localhost:5003/`. The api app will automatically reload if you change any of the source files. 
 
 ## WebAPI Development server - Kestrel
 
